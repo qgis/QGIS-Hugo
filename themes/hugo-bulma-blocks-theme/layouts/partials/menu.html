@@ -1,6 +1,5 @@
-{{ $isLocalhost := strings.Contains .Site.BaseURL "localhost" }}
-{{ $locationPrefix := cond $isLocalhost "" .Site.Params.uniNavHeaderLocationPrefix }}
-
+{{ $isLocal := (or (eq .Site.BaseURL "/") (strings.Contains .Site.BaseURL "localhost")) }}
+{{ $locationPrefix := cond $isLocal "" .Site.Params.uniNavHeaderLocationPrefix }}
 
 <qg-top-nav
     breakpoint="1024"
