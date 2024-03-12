@@ -16,16 +16,19 @@ mkShell {
      echo "🌈 Your Hugo Dev Environment is ready."
      echo "It provides hugo and vscode for use with the QGIS Hugo Project"
      echo ""
-     echo "🪛 Installing VSCode Extensions:"
+     echo "🪛 VSCode:"
      echo "--------------------------------"
-     code --extensions-dir=".vscode-extensions" --install-extension maziac.asm-code-lens
+     echo "Start vscode like this:"
      echo ""
-     echo "📒 Note:"
+     echo "./vscode.sh"
      echo "-----------------------"
-     echo "start vscode like this:"
+     echo "On running, it will install hugo related extensions."
      echo ""
-     echo "code --extensions-dir=\".vscode-extensions\" ."
-     echo "-----------------------"
+     echo "🪛 Hugo:"
+     echo "--------------------------------"
+     echo "Start hugo like this:"
+     echo ""
+     echo "hugo server"
   '';
   postShellHook = ''
   '';
