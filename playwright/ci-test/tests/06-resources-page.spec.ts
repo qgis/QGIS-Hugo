@@ -1,425 +1,268 @@
-import { test, expect } from '@playwright/test';
+import { test as base, expect } from "@playwright/test";
+import { Sidebar } from "./fixtures/sidebar";
+import { QgisResourcesPage } from "./fixtures/qgis-resources-page";
+import { InstallationGuidePage } from "./fixtures/installation-guide-page";
+import { ReleasesPage } from "./fixtures/releases-page";
+import { RoadmapPage } from "./fixtures/roadmap-page";
+import { ReportsPage } from "./fixtures/report-page";
+import { BooksPage } from "./fixtures/books-page";
 
-let url = '/';
+type ResourcesPageFixtures = {
+    sidebar: Sidebar;
+    qgisResourcesPage: QgisResourcesPage;
+    installationGuidePage: InstallationGuidePage;
+    releasesPage: ReleasesPage;
+    roadmapPage: RoadmapPage;
+    reportsPage: ReportsPage;
+    booksPage: BooksPage;
+};
 
-test('resources pages', async ({ page }) => {
-  await page.goto(url);
-  await page.locator('section').filter({ hasText: 'Free and open source Spatial' }).getByRole('link').click();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Resources', exact: true })).toBeVisible();
-  await expect(page.locator('#sidebar div').filter({ hasText: 'Resources' }).getByRole('img')).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Resources', exact: true }).click();
-  await expect(page.getByText('Resources ¶ 🖖 Troubles with')).toBeVisible();
-  await expect(page.getByText('Troubles with installation? ¶ If you are looking for information on installing')).toBeVisible();
-  await expect(page.locator('a').filter({ hasText: /^Installation guide$/ })).toBeVisible();
-  await expect(page.getByText('QGIS has a lot of')).toBeVisible();
-  await expect(page.getByText('You will find documentation')).toBeVisible();
-  await expect(page.getByText('Get involved and help us')).toBeVisible();
-  await expect(page.locator('p').filter({ hasText: 'Get involved and help us' }).getByRole('link')).toBeVisible();
-  await expect(page.locator('#tab-3')).toBeVisible();
-  await expect(page.getByText('Archived releases')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Desktop User Guide/Manual' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Server Guide/Manual' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'QGIS Training manual' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Introduction in GIS' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Documentation Guidelines' })).toBeVisible();
-  await expect(page.getByText('For documentation writers').first()).toBeVisible();
-  await expect(page.getByText('For developers').first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'PyQGIS cookbook (for plugins' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'C++ API documentation' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'PyQGIS - QGIS Python Api' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Building QGIS from Source' })).toBeVisible();
-  await expect(page.locator('p').filter({ hasText: 'For download' }).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'PDF of the manuals' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'HTML zip of the manuals' })).toBeVisible();
-  await expect(page.getByText('Support ¶ The QGIS community')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'View support options' })).toBeVisible();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Installation guide' })).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Installation guide' }).click();
-  await expect(page.getByText('QGIS Installers ¶ How to')).toBeVisible();
-  await expect(page.locator('#qgis-installers')).toContainText('QGIS Installers');
-  await expect(page.getByText('How to obtain QGIS?')).toBeVisible();
-  await expect(page.getByText('QGIS is available on Windows')).toBeVisible();
-  await expect(page.getByText('We recommend installing the')).toBeVisible();
-  await expect(page.getByText('To evaluate the upcoming')).toBeVisible();
-  await expect(page.getByText('In the feature frozen phase')).toBeVisible();
-  await expect(page.locator('p').filter({ hasText: 'To evaluate the upcoming' }).getByRole('link')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Release schedule' })).toBeVisible();
-  await expect(page.locator('#windows')).toContainText('Windows');
-  await expect(page.getByText('There are two options for')).toBeVisible();
-  await expect(page.locator('#standalone-installers')).toContainText('Standalone installers');
-  await expect(page.getByText('For beginners the easiest way')).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Release', exact: true }).first()).toBeVisible();
-  await expect(page.getByRole('row', { name: 'Release Version Package', exact: true }).getByRole('cell').nth(1)).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Package' }).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'The main installers page' })).toBeVisible();
-  await expect(page.locator('#osgeo4w-installer')).toContainText('OSGeo4W installer');
-  await expect(page.getByText('More advanced QGIS users')).toBeVisible();
-  await expect(page.getByText('The OSGeo4W repository')).toBeVisible();
-  await expect(page.getByText('Download OSGeo4W Installer')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'OSGeo4W Installer' })).toBeVisible();
-  await expect(page.getByText('Choose Express Install and')).toBeVisible();
-  await expect(page.getByText('The packages listed in the')).toBeVisible();
-  await expect(page.locator('#linux')).toContainText('Linux');
-  await expect(page.getByText('Most linux distributions')).toBeVisible();
-  await expect(page.getByText('Below you find instructions')).toBeVisible();
-  await expect(page.locator('#debianubuntu')).toContainText('Debian/Ubuntu');
-  await expect(page.getByText('Note ¶ In the section')).toBeVisible();
-  await expect(page.getByText('Note ¶ Although you see ‘')).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo apt install gnupg' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo mkdir -m755 -p /etc/apt/' }).first()).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'Types: deb deb-src URIs: https://qgis.org/debian Suites: your-distributions-' })).toBeVisible();
-  await expect(page.getByText('Note ¶ Suites in above lines')).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo apt update' }).first()).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo apt install qgis qgis-' }).first()).toBeVisible();
-  await expect(page.getByText('Note ¶ Add qgis-server to')).toBeVisible();
-  await expect(page.locator('#repositories')).toContainText('Repositories');
-  await expect(page.getByText('To have newer versions, you')).toBeVisible();
-  await expect(page.getByText('Our main repository contains')).toBeVisible();
-  await expect(page.getByText('For Ubuntu we also used to')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'ubuntugis', exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'ubuntugis documentation' })).toBeVisible();
-  await expect(page.getByText('Note ¶ The release packages')).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Release', exact: true }).nth(4)).toBeVisible();
-  await expect(page.getByRole('row', { name: 'Release Version Description' }).getByRole('cell').nth(1)).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Description' }).nth(1)).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Repository' }).first()).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Latest Release' }).nth(2)).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Release with ubuntugis-' }).first()).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Release for Debian and Ubuntu' }).first()).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'https://qgis.org/debian https' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'https://qgis.org/ubuntugis', exact: true })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Nightly build of upcoming' }).first()).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'https://qgis.org/debian-nightly-release https://qgis.org/ubuntu-nightly-release' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Nightly build of upcoming' }).nth(1)).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'https://qgis.org/ubuntugis-nightly-release' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Long Term Release Repository' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Release for Debian and Ubuntu' }).nth(2)).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'https://qgis.org/debian-ltr' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Release with ubuntugis-' }).nth(2)).toBeVisible();
-  await expect(page.locator('#available-codenames')).toContainText('Supported distribution versions:');
-  await expect(page.getByRole('cell', { name: 'Distribution' }).first()).toBeVisible();
-  await expect(page.getByRole('row', { name: 'Distribution Version Codename' }).getByRole('cell').nth(1)).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Codename' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Also available based on' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'wget https://download.qgis.' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: './qgis-archive-keyring.gpg -------------------------- pub rsa4096 2022-08-08 [' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo mkdir -m755 -p /etc/apt/' }).nth(1)).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo mkdir -m755 -p /etc/apt/' }).nth(2)).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'Types: deb deb-src URIs: *' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo apt update sudo apt install qgis qgis-plugin-grass' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo apt update sudo apt install qgis-server --no-install-recommends --no-' })).toBeVisible();
-  await expect(page.getByText('Note ¶ Please remove all the')).toBeVisible();
-  await expect(page.locator('#fedora')).toContainText('Fedora');
-  await expect(page.locator('pre').filter({ hasText: 'sudo dnf install qgis python3-qgis qgis-grass qgis-server' })).toBeVisible();
-  await expect(page.locator('#qgis-stable')).toContainText('QGIS stable');
-  await expect(page.locator('pre').filter({ hasText: 'sudo dnf copr enable dani/qgis' }).first()).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo dnf install qgis python3' }).nth(1)).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo dnf install qgis-server' }).first()).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Distribution' }).nth(1)).toBeVisible();
-  await expect(page.locator('table').filter({ hasText: 'Distribution Version QGIS version GRASS GIS version Fedora' }).locator('th').nth(1)).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'QGIS version' }).first()).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'GRASS GIS version' }).first()).toBeVisible();
-  await expect(page.getByText('More information are').first()).toBeVisible();
-  await expect(page.locator('#qgis-ltr-long-term-release')).toContainText('QGIS LTR (Long Term Release)');
-  await expect(page.locator('pre').filter({ hasText: 'sudo dnf copr enable dani/qgis-ltr' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo dnf install qgis python3' }).nth(2)).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo dnf install qgis-server' }).nth(1)).toBeVisible();
-  await expect(page.getByText('More information are').nth(1)).toBeVisible();
-  await expect(page.getByRole('link', { name: 'https://copr.fedorainfracloud.org/coprs/dani/qgis-ltr/' })).toBeVisible();
-  await expect(page.locator('#suse--opensuse')).toContainText('SUSE / openSUSE');
-  await expect(page.getByRole('cell', { name: 'Distribution' }).nth(3)).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Repository' }).nth(2)).toBeVisible();
-  await expect(page.locator('#mandriva')).toContainText('Mandriva');
-  await expect(page.locator('pre').filter({ hasText: 'urpmi qgis-python qgis-grass' })).toBeVisible();
-  await expect(page.locator('#slackware')).toContainText('Slackware');
-  await expect(page.getByText('Packages on https://')).toBeVisible();
-  await expect(page.locator('#arch-linux')).toContainText('Arch Linux');
-  await expect(page.getByText('Arch Linux is available in')).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'pacman -S qgis' })).toBeVisible();
-  await expect(page.locator('#qgis-ltr')).toContainText('QGIS LTR');
-  await expect(page.locator('pre').filter({ hasText: 'yaourt -S qgis-ltr' })).toBeVisible();
-  await expect(page.locator('#qgis-testing')).toContainText('QGIS testing');
-  await expect(page.getByText('yaourt -S qgis-git')).toBeVisible();
-  await expect(page.getByText('For bugs and other behaviour').nth(1)).toBeVisible();
-  await expect(page.locator('#flatpak')).toContainText('Flatpak');
-  await expect(page.getByText('For general Linux Flatpak')).toBeVisible();
-  await expect(page.getByText('QGIS on Flathub: https://')).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'flatpak install --from https' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'flatpak run org.qgis.qgis' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'flatpak update' })).toBeVisible();
-  await expect(page.getByText('Flathub files: https://github')).toBeVisible();
-  await expect(page.locator('#spack')).toContainText('Spack');
-  await expect(page.getByText('General info on installing')).toBeVisible();
-  await expect(page.getByText('QGIS package file on Spack:')).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'spack install qgis' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'spack load qgis' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'spack env create myenv spack' })).toBeVisible();
-  await expect(page.getByText('Spack related issues should')).toBeVisible();
-  await expect(page.locator('#mac-os-x--macos')).toContainText('Mac OS X / macOS');
-  await expect(page.getByText('Official All-in-one, signed')).toBeVisible();
-  await expect(page.locator('#qgis-nightly-release')).toContainText('QGIS nightly release');
-  await expect(page.locator('#macports')).toContainText('MacPorts');
-  await expect(page.getByText('The package management system')).toBeVisible();
-  await expect(page.getByText('Installing MacPorts and updating it and the ports are made with the Terminal.')).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo port info qgis3' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo port install qgis3 +grass' })).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'sudo port selfupdate sudo' })).toBeVisible();
-  await expect(page.getByText('Note ¶ Concurrent')).toBeVisible();
-  await expect(page.locator('#old-releases')).toContainText('Old releases');
-  await expect(page.getByText('Previous releases of the official installer can be downloaded from https://qgis')).toBeVisible();
-  await expect(page.getByText('Previous releases of the kyngchaos installer can be downloaded from https://www')).toBeVisible();
-  await expect(page.locator('#freebsd')).toContainText('FreeBSD');
-  await expect(page.locator('#qgis-stable-4')).toContainText('QGIS stable');
-  await expect(page.locator('pre').filter({ hasText: 'pkg install qgis' }).first()).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'cd /usr/ports/graphics/qgis make install clean' })).toBeVisible();
-  await expect(page.locator('#qgis-ltr-1')).toContainText('QGIS LTR');
-  await expect(page.locator('span').filter({ hasText: 'pkg install qgis-ltr' }).first()).toBeVisible();
-  await expect(page.locator('pre').filter({ hasText: 'cd /usr/ports/graphics/qgis-' })).toBeVisible();
-  await expect(page.locator('#openbsd')).toContainText('OpenBSD');
-  await expect(page.locator('pre').filter({ hasText: 'pkg_add qgis' })).toBeVisible();
-  await expect(page.getByText('See: - https://openbsd.app/?')).toBeVisible();
-  await expect(page.locator('#android')).toContainText('Android');
-  await expect(page.getByText('An old and deprecated not')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'https://play.google.com/store' })).toBeVisible();
-  await expect(page.getByText('Warning ¶ There is currently')).toBeVisible();
-  await expect(page.locator('#qgis-testing-warning')).toContainText('QGIS Testing warning');
-  await expect(page.getByText('Warning ¶ QGIS testing')).toBeVisible();
-  await expect(page.locator('#installing-from-source')).toContainText('Installing from Source');
-  await expect(page.getByText('Refer to INSTALL on how to')).toBeVisible();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Documentation' })).toBeVisible();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Releases', exact: true })).toBeVisible();
-  await expect(page.locator('#sidebar div').filter({ hasText: 'Releases' }).locator('span')).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Releases', exact: true }).click();
-  await expect(page.locator('#list-of-releases')).toContainText('List of Releases');
-  await expect(page.getByText('Previous releases of QGIS are')).toBeVisible();
-  await expect(page.getByText('More older releases are')).toBeVisible();
-  await expect(page.getByText('Plugins for QGIS are also')).toBeVisible();
-  await expect(page.locator('#tests')).toContainText('Tests');
-  await expect(page.getByText('Both QGIS and QGIS server are')).toBeVisible();
-  await expect(page.getByText('From build tests (github')).toBeVisible();
-  await expect(page.getByText('See Unit testing')).toBeVisible();
-  await expect(page.getByText('See OGC conformance testing')).toBeVisible();
-  await expect(page.getByText('Recent tests output can be')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'List of releases' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Tests' })).toBeVisible();
-  await page.getByRole('link', { name: 'Tests' }).click();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Roadmap' })).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Roadmap' }).click();
-  await expect(page.locator('#road-map')).toContainText('Road Map');
-  await expect(page.locator('#development-phase')).toContainText('Development phase');
-  await expect(page.locator('#feature-freeze')).toContainText('Feature freeze');
-  await expect(page.locator('#release')).toContainText('Release');
-  await expect(page.locator('#release-schedule')).toContainText('Release schedule');
-  await expect(page.locator('#schedule')).toContainText('Schedule');
-  await expect(page.getByRole('cell', { name: 'Event' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Latest', exact: true })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Long-Term Repo' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Freeze', exact: true })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Date' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Week #' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Weeks' })).toBeVisible();
-  await expect(page.locator('#event-legend')).toContainText('Event legend');
-  await expect(page.getByRole('cell', { name: 'Long term release, begin of' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Regular release, begin of new' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Feature freeze, end of' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Point release of latest' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Extra Point release' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'currently supported releases' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'next releases' })).toBeVisible();
-  await expect(page.locator('#qgis-prereleases')).toContainText('Location of prereleases / nightly builds');
-  await expect(page.getByRole('cell', { name: 'Platform' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Location' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Windows' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'OSGeo4W' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Linux' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Debian/Ubuntu' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'MacOS' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Mac OS' })).toBeVisible();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Reports', exact: true })).toBeVisible();
-  await expect(page.locator('#sidebar div').filter({ hasText: 'Reports' }).locator('span')).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Reports', exact: true }).click();
-  await expect(page.locator('#daily-reports')).toContainText('Daily Reports');
-  await expect(page.locator('#ogc-certification')).toContainText('OGC Certification');
-  await expect(page.getByText('QGIS Server').first()).toBeVisible();
-  await expect(page.locator('p:nth-child(5) > img')).toBeVisible();
-  await expect(page.getByText('In order to keep an eye on')).toBeVisible();
-  await expect(page.getByText('WMS').first()).toBeVisible();
-  await expect(page.getByText('OGC API Features (aka WFS')).toBeVisible();
-  await expect(page.getByText('WFS').first()).toBeVisible();
-  await expect(page.getByText('Latest reports')).toBeVisible();
-  await expect(page.locator('#performance')).toContainText('Performance');
-  await expect(page.getByText('At the moment, two tools are')).toBeVisible();
-  await expect(page.getByText('The first one is MS-Perfs')).toBeVisible();
-  await expect(page.getByText('The second one is Graffiti,')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'OGC Certification' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Performance' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Security' })).toBeVisible();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Books' })).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Books' }).click();
-  await expect(page.getByText('Books ¶ This page lists books')).toBeVisible();
-  await expect(page.locator('#books')).toContainText('Books');
-  await expect(page.getByText('This page lists books')).toBeVisible();
-  await expect(page.getByText('Please write to psc@qgis.org')).toBeVisible();
-  await expect(page.getByText('Note: Books order is newest')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'psc@qgis.org' })).toBeVisible();
-  await expect(page.locator('#english')).toContainText('English');
-  await expect(page.locator('#discover-qgis-3x---second-edition')).toContainText('Discover QGIS');
-  await expect(page.locator('#qgis-for-hydrological-applications---second-edition')).toContainText('QGIS for Hydrological Applications - Second Edition');
-  await expect(page.locator('#land-use-cover-datasets-and-validation-tools-validation-practices-with-qgis')).toContainText('Land Use Cover Datasets and Validation Tools. Validation Practices with QGIS');
-  await expect(page.locator('#introduction-to-qgis')).toContainText('Introduction to QGIS');
-  await expect(page.locator('#qgis-for-hydrological-applications')).toContainText('QGIS for Hydrological applications');
-  await expect(page.locator('#chinese')).toContainText('Chinese');
-  await expect(page.locator('#dutch')).toContainText('Dutch');
-  await expect(page.locator('#french')).toContainText('French');
-  await expect(page.locator('#greek')).toContainText('Greek');
-  await expect(page.locator('#japanese')).toContainText('Japanese');
-  await expect(page.locator('#polish')).toContainText('Polish');
-  await expect(page.locator('#turkish')).toContainText('Turkish');
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Support', exact: true })).toBeVisible();
-  await expect(page.locator('#sidebar div').filter({ hasText: 'Support' }).locator('span')).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Support', exact: true }).click();
-  await expect(page.locator('#support')).toContainText('Support');
-  await expect(page.locator('#mailing-lists')).toContainText('Mailing Lists');
-  await expect(page.getByText('QGIS has a bunch of mailing')).toBeVisible();
-  await expect(page.getByText('If you are going to ask')).toBeVisible();
-  await expect(page.locator('#stackexchange')).toContainText('StackExchange');
-  await expect(page.getByText('On http://gis.stackexchange.')).toBeVisible();
-  await expect(page.locator('#communication-channels')).toContainText('Communication channels');
-  await expect(page.locator('#telegram')).toContainText('Telegram');
-  await expect(page.getByText('There is a lot of user and')).toBeVisible();
-  await expect(page.getByText('To join: install Telegram on')).toBeVisible();
-  await expect(page.getByText('There is also a web version (')).toBeVisible();
-  await expect(page.locator('#matrix--irc')).toContainText('Matrix / IRC');
-  await expect(page.getByText('Matrix (https://matrix.org)')).toBeVisible();
-  await expect(page.getByText('To use Matrix: create an')).toBeVisible();
-  await expect(page.getByText('To use IRC: install an IRC')).toBeVisible();
-  await expect(page.locator('#facebook')).toContainText('Facebook');
-  await expect(page.getByText('For Facebook users, an')).toBeVisible();
-  await expect(page.locator('#user-groups')).toContainText('User Groups');
-  await expect(page.getByText('Local QGIS user groups are a')).toBeVisible();
-  await expect(page.getByText('See User Groups to read about')).toBeVisible();
-  await expect(page.locator('#website')).toContainText('Website');
-  await expect(page.getByText('The website should be used to')).toBeVisible();
-  await expect(page.getByText('Good luck with the')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'FAQ' })).toBeVisible();
-  await page.getByRole('link', { name: 'FAQ' }).click();
-  await expect(page.locator('#faq')).toContainText('FAQ');
-  await expect(page.getByText('Here we collect answers to')).toBeVisible();
-  await expect(page.getByText('We will start of with this')).toBeVisible();
-  await expect(page.locator('#user')).toContainText('User');
-  await expect(page.locator('#downloading-issues')).toContainText('Downloading issues');
-  await expect(page.getByText('If you are trying to download')).toBeVisible();
-  await expect(page.locator('#i-have-to-donate-in-order-to-download-qgis')).toContainText('I have to donate in order to download QGIS');
-  await expect(page.getByText('This is a misconception that')).toBeVisible();
-  await expect(page.locator('#how-to-ask-a-qgis-question')).toContainText('How to ask a QGIS question?');
-  await expect(page.getByText('If you are going to ask QGIS')).toBeVisible();
-  await expect(page.getByText('Keep in mind that the more')).toBeVisible();
-  await expect(page.getByText('Note ¶ In case of a broken')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'QGIS issue tracker' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'bug-reporting' })).toBeVisible();
-  await expect(page.locator('#how-are-qgis-release-names-selected')).toContainText('How are QGIS release names selected?');
-  await expect(page.getByText('After a successful developer')).toBeVisible();
-  await expect(page.locator('#how-to-cite-qgis')).toContainText('How to cite QGIS?');
-  await expect(page.getByText('To cite QGIS in your piece of')).toBeVisible();
-  await expect(page.locator('section')).toContainText('Cite the QGIS project in general');
-  await expect(page.getByText('QGIS.org, %%Y. QGIS Geographic Information System. QGIS Association.')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'http://www.qgis.org' })).toBeVisible();
-  await expect(page.getByText('Cite the QGIS Developers')).toBeVisible();
-  await expect(page.getByText('Geographic Information System Developers Manual. QGIS Association.').first()).toBeVisible();
-  await expect(page.getByText('Cite the QGIS Installation')).toBeVisible();
-  await expect(page.getByText('Geographic Information System Installation Guide. QGIS Association.').first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'https://github.com/qgis/QGIS/' })).toBeVisible();
-  await expect(page.locator('p').filter({ hasText: 'Cite the QGIS User Guide' })).toBeVisible();
-  await expect(page.getByText('Geographic Information System User Guide. QGIS Association.')).toBeVisible();
-  await expect(page.getByText('Cite the QGIS Server')).toBeVisible();
-  await expect(page.getByText('Geographic Information System API Documentation. QGIS Association.').first()).toBeVisible();
-  await expect(page.getByText('Cite the QGIS API')).toBeVisible();
-  await expect(page.getByText('Geographic Information System API Documentation. QGIS Association.').first()).toBeVisible();
-  await expect(page.getByText('Preferred format: BibTeX')).toBeVisible();
-  await expect(page.locator('pre')).toBeVisible();
-  await expect(page.locator('#i-created-a-map-with-qgis-do-i-have-to-mention-qgis')).toContainText('I created a map with QGIS, do I have to mention QGIS?');
-  await expect(page.getByText('There is no requirement to')).toBeVisible();
-  await expect(page.getByText('Note ¶ Do not say ©QGIS as')).toBeVisible();
-  await expect(page.locator('#can-i-open-ecw-files-with-qgis')).toContainText('Can I open ECW files with QGIS?');
-  await expect(page.getByText('Yes you can… BUT depending on')).toBeVisible();
-  await expect(page.getByText('If you are under Windows and')).toBeVisible();
-  await expect(page.getByText('If you are using macOS, you')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'https://www.kyngchaos.com/' })).toBeVisible();
-  await expect(page.getByText('For other instructions, eg')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'https://www.faunalia.eu/en/' })).toBeVisible();
-  await expect(page.locator('#development')).toContainText('Development');
-  await expect(page.locator('#can-i-compile-qgis-myself')).toContainText('Can I compile QGIS myself?');
-  await expect(page.getByText('Yes, compiling QGIS from')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Building QGIS from source' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Bug Reporting' })).toBeVisible();
-  await page.getByRole('link', { name: 'Bug Reporting' }).click();
-  await expect(page.getByText('Bugs, Features and Issues ¶ QGIS is a largely volunteer driven project, and is')).toBeVisible();
-  await expect(page.locator('#bugs-features-and-issues')).toContainText('Bugs, Features and Issues');
-  await expect(page.getByText('QGIS is a largely volunteer')).toBeVisible();
-  await expect(page.locator('#where-to-report')).toContainText('Where to report?');
-  await expect(page.getByText('Each part of the QGIS Project')).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Place you found the bug or' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Place to report the issue' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Applications (QGIS Desktop,' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'https://github.com/qgis/QGIS/' }).first()).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'QGIS Website (https://qgis.' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'https://github.com/qgis/QGIS-Website/issues' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'QGIS Documentation (https://' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'https://github.com/qgis/QGIS-Documentation/issues' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'C++ API (https://qgis.org/api' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'https://github.com/qgis/QGIS/' }).nth(1)).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'PyQGIS API (https://qgis.org/' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'https://github.com/qgis/QGIS/issues (for contents) and https://github.com/qgis/' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'External plugins' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'The author repository set in' })).toBeVisible();
-  await expect(page.getByText('For help and questions,')).toBeVisible();
-  await expect(page.locator('#reporting-issues-on-qgis-applications')).toContainText('Reporting issues on QGIS applications');
-  await expect(page.getByText('QGIS applications (QGIS')).toBeVisible();
-  await expect(page.locator('#before-reporting-an-issue')).toContainText('Before reporting an issue');
-  await expect(page.getByText('Before filing an issue,')).toBeVisible();
-  await expect(page.getByText('When you’re are logged in, a')).toBeVisible();
-  await expect(page.getByText('Before sending the report,')).toBeVisible();
-  await expect(page.locator('#creating-a-backtrace')).toContainText('Creating a backtrace');
-  await expect(page.getByText('If you have a crash it might')).toBeVisible();
-  await expect(page.getByText('On Linux QGIS automatically')).toBeVisible();
-  await expect(page.getByText('QGIS died on signal 11Could')).toBeVisible();
-  await expect(page.getByText('In that case you should')).toBeVisible();
-  await expect(page.getByText('If you cannot reproduce the')).toBeVisible();
-  await expect(page.getByText('On some distributions the')).toBeVisible();
-  await expect(page.getByText('To produce a backtrace from')).toBeVisible();
-  await expect(page.locator('#log-output-on-windows')).toContainText('Log output on Windows');
-  await expect(page.getByText('The nightly build in OSGeo4W')).toBeVisible();
-  await expect(page.locator('#reporting-issues-on-qgis-web-site-or-documentation')).toContainText('Reporting issues on QGIS web site or documentation');
-  await expect(page.getByText('QGIS project provides an')).toBeVisible();
-  await expect(page.getByText('The main sources of these')).toBeVisible();
-  await expect(page.getByText('To get started, first Create')).toBeVisible();
-  await expect(page.getByText('Then, choose the appropriate')).toBeVisible();
-  await expect(page.getByText('https://github.com/qgis/QGIS-Documentation/issues for QGIS documentation')).toBeVisible();
-  await expect(page.getByText('https://github.com/qgis/QGIS-Website/issues for the web site')).toBeVisible();
-  await expect(page.getByText('Check if the issue you’d like')).toBeVisible();
-  await expect(page.locator('#reporting-plugin-issues')).toContainText('Reporting plugin issues');
-  await expect(page.getByText('Most of the plugins in QGIS')).toBeVisible();
-  await expect(page.getByText('For any plugin available in')).toBeVisible();
-  await expect(page.getByText('If no information is')).toBeVisible();
-  await expect(page.getByText('For other plugins, we have no')).toBeVisible();
-  await expect(page.locator('#submitting-a-patch-to-qgis-projects')).toContainText('Submitting a Patch to QGIS projects');
-  await expect(page.getByText('In addition to issue report,')).toBeVisible();
-  await expect(page.getByText('https://github.com/qgis/QGIS for QGIS Desktop or QGIS Server applications')).toBeVisible();
-  await expect(page.getByText('https://github.com/qgis/QGIS-Website for the web site at https://qgis.org')).toBeVisible();
-  await expect(page.getByText('https://github.com/qgis/QGIS-Documentation for the documentation available at')).toBeVisible();
-  await expect(page.getByText('You can find a few guidelines')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Communication channels' })).toBeVisible();
-  await page.getByRole('link', { name: 'Communication channels' }).click();
-  await expect(page.getByRole('link', { name: 'Commercial support' })).toBeVisible();
-  await page.getByRole('link', { name: 'Commercial support' }).click();
-  await expect(page.getByText('Commercial support ¶ Do you')).toBeVisible();
-  await expect(page.locator('#commercial-support')).toContainText('Commercial support');
-  await expect(page.getByText('Do you plan to use QGIS in')).toBeVisible();
-  await expect(page.getByText('Note ¶ we take responsibility')).toBeVisible();
-  await expect(page.locator('#core-contributors')).toContainText('Core contributors');
-  await expect(page.getByText('3liz (based in France) offers')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'StackExchange' })).toBeVisible();
-  await page.getByRole('link', { name: 'StackExchange' }).click();
-  await expect(page.getByRole('link', { name: 'Website Creation' })).toBeVisible();
-  await page.getByRole('link', { name: 'Website Creation' }).click();
+const test = base.extend<ResourcesPageFixtures>({
+    sidebar: async ({ page }, use) => {
+        const sidebar = new Sidebar(page);
+        await use(sidebar);
+    },
+    qgisResourcesPage: async ({ page }, use) => {
+        const qgisResourcesPage = new QgisResourcesPage(page);
+        await use(qgisResourcesPage);
+    },
+    installationGuidePage: async ({ page }, use) => {
+        const installationGuidePage = new InstallationGuidePage(page);
+        await use(installationGuidePage);
+    },
+    releasesPage: async ({ page }, use) => {
+        const releasesPage = new ReleasesPage(page);
+        await use(releasesPage);
+    },
+    roadmapPage: async ({ page }, use) => {
+        const roadmapPage = new RoadmapPage(page);
+        await use(roadmapPage);
+    },
+    reportsPage: async ({ page }, use) => {
+        const reportsPage = new ReportsPage(page);
+        await use(reportsPage);
+    },
+    booksPage: async ({ page }, use) => {
+        const booksPage = new BooksPage(page);
+        await use(booksPage);
+    },
+});
+
+test.describe("Resources pages", () => {
+    test.beforeEach(async ({ qgisResourcesPage }) => {
+        // Go to the resources url before each test.
+        await qgisResourcesPage.goto();
+    });
+
+    test("QGIS resources", async ({ sidebar, qgisResourcesPage }) => {
+        await expect(sidebar.resourcesLink).toBeVisible();
+        await sidebar.resourcesLink.click();
+        await expect(qgisResourcesPage.installationGuideLink).toBeVisible();
+        await expect(qgisResourcesPage.getInvolvedLink).toBeVisible();
+        await expect(qgisResourcesPage.tab3Element).toBeVisible();
+        await expect(qgisResourcesPage.desktopUserGuideLink).toBeVisible();
+        await expect(qgisResourcesPage.serverGuideLink).toBeVisible();
+        await expect(qgisResourcesPage.qgisTrainingManualLink).toBeVisible();
+        await expect(qgisResourcesPage.introductionInGISLink).toBeVisible();
+        await expect(
+            qgisResourcesPage.documentationGuidelinesLink,
+        ).toBeVisible();
+        await expect(qgisResourcesPage.pyQGISCookbookLink).toBeVisible();
+        await expect(
+            qgisResourcesPage.cPlusPlusAPIDocumentationLink,
+        ).toBeVisible();
+        await expect(qgisResourcesPage.pyQGISApiLink).toBeVisible();
+        await expect(
+            qgisResourcesPage.buildingQGISFromSourceLink,
+        ).toBeVisible();
+        await expect(qgisResourcesPage.forDownloadParagraph).toBeVisible();
+        await expect(qgisResourcesPage.pdfManualsLink).toBeVisible();
+        await expect(qgisResourcesPage.htmlZipManualsLink).toBeVisible();
+        await expect(qgisResourcesPage.viewSupportOptionsLink).toBeVisible();
+
+        for (const text of qgisResourcesPage.textList) {
+            await expect(qgisResourcesPage.pageBody).toContainText(text);
+        }
+    });
+
+    test("Installation guide", async ({ sidebar, installationGuidePage }) => {
+        await expect(sidebar.installationGuideLink).toBeVisible();
+        await sidebar.installationGuideLink.click();
+        await expect(
+            installationGuidePage.upcomingEvaluationLink,
+        ).toBeVisible();
+        await expect(installationGuidePage.releaseScheduleLink).toBeVisible();
+        await expect(installationGuidePage.releaseCell1).toBeVisible();
+        await expect(
+            installationGuidePage.releaseVersionPackageCell,
+        ).toBeVisible();
+        await expect(installationGuidePage.packageCell).toBeVisible();
+        await expect(
+            installationGuidePage.mainInstallersPageLink,
+        ).toBeVisible();
+        await expect(installationGuidePage.osgeo4WInstallerLink).toBeVisible();
+        await expect(installationGuidePage.aptInstallGnupgPre).toBeVisible();
+        await expect(installationGuidePage.aptInstallAptPre).toBeVisible();
+        await expect(installationGuidePage.aptUpdatePre).toBeVisible();
+        await expect(installationGuidePage.aptInstallQgisPre).toBeVisible();
+        await expect(installationGuidePage.ubuntugisLink).toBeVisible();
+        await expect(
+            installationGuidePage.ubuntugisDocumentationLink,
+        ).toBeVisible();
+        await expect(installationGuidePage.releaseCell4).toBeVisible();
+        await expect(
+            installationGuidePage.releaseVersionDescriptionCell,
+        ).toBeVisible();
+        await expect(installationGuidePage.descriptionCell).toBeVisible();
+        await expect(installationGuidePage.repositoryCell).toBeVisible();
+        await expect(installationGuidePage.latestReleaseCell).toBeVisible();
+        await expect(
+            installationGuidePage.releaseWithUbuntugisCell,
+        ).toBeVisible();
+        await expect(
+            installationGuidePage.releaseDebianUbuntuCell,
+        ).toBeVisible();
+        await expect(
+            installationGuidePage.releaseDebianUbuntuLink,
+        ).toBeVisible();
+        await expect(installationGuidePage.releaseUbuntugisCell).toBeVisible();
+        await expect(
+            installationGuidePage.longTermReleaseRepositoryCell,
+        ).toBeVisible();
+        await expect(
+            installationGuidePage.releaseDebianUbuntuCell2,
+        ).toBeVisible();
+        await expect(installationGuidePage.releaseDebianLtrLink).toBeVisible();
+        await expect(
+            installationGuidePage.releaseWithUbuntugisCell2,
+        ).toBeVisible();
+        await expect(installationGuidePage.distributionCell).toBeVisible();
+        await expect(
+            installationGuidePage.distributionVersionCodenameCell,
+        ).toBeVisible();
+        await expect(installationGuidePage.codenameCell).toBeVisible();
+        await expect(
+            installationGuidePage.alsoAvailableBasedOnCell,
+        ).toBeVisible();
+        await expect(installationGuidePage.wgetQgisPre).toBeVisible();
+        await expect(installationGuidePage.qgisArchiveKeyringPre).toBeVisible();
+        await expect(installationGuidePage.mkdirAptPre1).toBeVisible();
+        await expect(installationGuidePage.mkdirAptPre2).toBeVisible();
+        await expect(
+            installationGuidePage.aptUpdateInstallQgisPre,
+        ).toBeVisible();
+        await expect(
+            installationGuidePage.aptUpdateInstallQgisServerPre,
+        ).toBeVisible();
+        await expect(installationGuidePage.dnfInstallQgisPre).toBeVisible();
+        await expect(installationGuidePage.dnfCoprEnableQgisPre1).toBeVisible();
+        await expect(
+            installationGuidePage.dnfInstallQgisPythonPre,
+        ).toBeVisible();
+        await expect(
+            installationGuidePage.dnfInstallQgisServerPre,
+        ).toBeVisible();
+        await expect(installationGuidePage.distributionCell2).toBeVisible();
+        await expect(installationGuidePage.distGrassFedora).toBeVisible();
+        await expect(installationGuidePage.qgisVersionCell).toBeVisible();
+        await expect(installationGuidePage.grassGisVersionCell).toBeVisible();
+        await expect(installationGuidePage.dnfCoprEnableQgisPre2).toBeVisible();
+        await expect(
+            installationGuidePage.dnfInstallQgisPythonPre2,
+        ).toBeVisible();
+        await expect(
+            installationGuidePage.dnfInstallQgisServerPre2,
+        ).toBeVisible();
+        await expect(installationGuidePage.fedoraCoprLink).toBeVisible();
+        await expect(installationGuidePage.distributionCell3).toBeVisible();
+        await expect(installationGuidePage.repositoryCell2).toBeVisible();
+        await expect(installationGuidePage.urpmiQgisPre).toBeVisible();
+        await expect(installationGuidePage.pacmanQgisPre).toBeVisible();
+        await expect(installationGuidePage.yaourtQgisLtrPre).toBeVisible();
+        await expect(installationGuidePage.flatpakInstallPre).toBeVisible();
+        await expect(installationGuidePage.flatpakRunPre).toBeVisible();
+        await expect(installationGuidePage.flatpakUpdatePre).toBeVisible();
+        await expect(installationGuidePage.spackInstallQgisPre).toBeVisible();
+        await expect(installationGuidePage.spackLoadQgisPre).toBeVisible();
+        await expect(installationGuidePage.spackEnvCreatePre).toBeVisible();
+        await expect(installationGuidePage.portInfoQgis3Pre).toBeVisible();
+        await expect(installationGuidePage.portInstallQgis3Pre).toBeVisible();
+        await expect(installationGuidePage.portSelfupdatePre).toBeVisible();
+        await expect(installationGuidePage.pkgInstallQgisPre).toBeVisible();
+        await expect(installationGuidePage.makeInstallQgisPre).toBeVisible();
+        await expect(installationGuidePage.pkgInstallQgisLtrSpan).toBeVisible();
+        await expect(installationGuidePage.makeInstallQgisLtrPre).toBeVisible();
+        await expect(installationGuidePage.pkgAddQgisPre).toBeVisible();
+        await expect(installationGuidePage.googlePlayLink).toBeVisible();
+        await expect(sidebar.documentationLink).toBeVisible();
+
+        for (const text of installationGuidePage.textList) {
+            await expect(installationGuidePage.pageBody).toContainText(text);
+        }
+    });
+
+    test("Releases", async ({ page, sidebar, releasesPage }) => {
+        await expect(sidebar.releasesLink).toBeVisible();
+        await sidebar.releasesLink.click();
+
+        for (const text of releasesPage.textList) {
+            await expect(releasesPage.pageBody).toContainText(text);
+        }
+        await expect(releasesPage.listOfReleasesLink).toBeVisible();
+        await expect(releasesPage.testsLink).toBeVisible();
+        await releasesPage.testsLink.click();
+    });
+
+    test("Roadmap", async ({ sidebar, roadmapPage }) => {
+        await expect(sidebar.roadmapLink).toBeVisible();
+        await sidebar.roadmapLink.click();
+        await expect(roadmapPage.event).toBeVisible();
+        await expect(roadmapPage.latest).toBeVisible();
+        await expect(roadmapPage.longTermRepo).toBeVisible();
+        await expect(roadmapPage.freeze).toBeVisible();
+        await expect(roadmapPage.date).toBeVisible();
+        await expect(roadmapPage.weekNumber).toBeVisible();
+        await expect(roadmapPage.weeks).toBeVisible();
+        await expect(roadmapPage.longTermReleaseBegin).toBeVisible();
+        await expect(roadmapPage.regularReleaseBegin).toBeVisible();
+        await expect(roadmapPage.featureFreezeEnd).toBeVisible();
+        await expect(roadmapPage.pointReleaseLatest).toBeVisible();
+        await expect(roadmapPage.extraPointRelease).toBeVisible();
+        await expect(roadmapPage.currentlySupportedReleases).toBeVisible();
+        await expect(roadmapPage.nextReleases).toBeVisible();
+        await expect(roadmapPage.platform).toBeVisible();
+        await expect(roadmapPage.location).toBeVisible();
+        await expect(roadmapPage.windows).toBeVisible();
+        await expect(roadmapPage.osgeo4w).toBeVisible();
+        await expect(roadmapPage.linux).toBeVisible();
+        await expect(roadmapPage.debianUbuntu).toBeVisible();
+        await expect(roadmapPage.macOS).toBeVisible();
+
+        for (const text of roadmapPage.textList) {
+            await expect(roadmapPage.pageBody).toContainText(text);
+        }
+    });
+
+    test("Reports", async ({ page, sidebar, reportsPage }) => {
+        await expect(sidebar.reportsLink).toBeVisible();
+        await sidebar.reportsLink.click();
+        await expect(reportsPage.certificationImage).toBeVisible();
+        await expect(reportsPage.ogcCertificationLink).toBeVisible();
+        await expect(reportsPage.performanceLink).toBeVisible();
+        await expect(reportsPage.securityLink).toBeVisible();
+
+        for (const text of reportsPage.textList) {
+            await expect(reportsPage.pageBody).toContainText(text);
+        }
+    });
+
+    test("Books", async ({ sidebar, booksPage }) => {
+        await expect(sidebar.booksLink).toBeVisible();
+        await sidebar.booksLink.click();
+        await expect(booksPage.contactLink).toBeVisible();
+
+        for (const text of booksPage.textList) {
+            await expect(booksPage.pageBody).toContainText(text);
+        }
+    });
 });

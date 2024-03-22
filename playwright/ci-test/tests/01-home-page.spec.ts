@@ -1,112 +1,139 @@
-import { test, expect } from '@playwright/test';
+import { test as base, expect } from "@playwright/test";
+import { Header } from "./fixtures/header";
+import { HomePage } from "./fixtures/home-page";
+import { Footer } from "./fixtures/footer";
 
-let url = '/';
+type HomePageFixtures = {
+    header: Header;
+    homePage: HomePage;
+    footer: Footer;
+};
 
-test('home page', async ({ page }) => {
-  await page.goto(url);
-  await expect(page.getByRole('banner')).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link').first()).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByText('Product')).toBeVisible();
-  await page.getByLabel('main navigation').getByText('Product').hover();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Overview' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Case studies' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Plugins' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Visual Changelogs' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByText('Community')).toBeVisible();
-  await page.getByLabel('main navigation').getByText('Community').hover();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Get involved' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Become a Certified Member' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'QGIS Foundation' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Project Organisation' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Members Blog' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Download' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByText('Resources', { exact: true })).toBeVisible();
-  await page.getByLabel('main navigation').getByText('Resources', { exact: true }).hover();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'QGIS Resources' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Installation Guide' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Documentation' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Releases' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Roadmap' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Reports' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Books' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Support' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Blog' })).toBeVisible();
-  await expect(page.getByLabel('main navigation').getByRole('link', { name: 'Donate' })).toBeVisible();
-  await expect(page.getByPlaceholder('Search')).toBeVisible();
-  await expect(page.getByPlaceholder('Search')).toBeEmpty();
-  await expect(page.locator('div').filter({ hasText: 'Free and open source Spatial' }).first()).toBeVisible();
-  await expect(page.getByText('Free and open source').first()).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Spatial without compromise' })).toBeVisible();
-  await expect(page.getByText('Giving the power of spatial')).toBeVisible();
-  await expect(page.locator('section').filter({ hasText: 'Free and open source Spatial' }).getByRole('link')).toBeVisible();
-  await expect(page.getByText('Available on Windows, Mac,')).toBeVisible();
-  await expect(page.locator('section').filter({ hasText: 'Free and open source Spatial' }).getByRole('img')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Create maps' })).toBeVisible();
-  await expect(page.getByText('Explore QGIS\'s exceptional')).toBeVisible();
-  await expect(page.getByText('Class-leading cartography')).toBeVisible();
-  await expect(page.getByText('Experience QGIS\' extensive')).toBeVisible();
-  await expect(page.getByText('Professional map production')).toBeVisible();
-  await expect(page.getByText('Use the intuitive layout')).toBeVisible();
-  await expect(page.getByText('Powerful reporting tools')).toBeVisible();
-  await expect(page.getByText('Create atlasses and reports')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Edit layers' })).toBeVisible();
-  await expect(page.getByText('Harness the unmatched')).toBeVisible();
-  await expect(page.locator('.deco-block-2 > img')).toBeVisible();
-  await expect(page.locator('.deco-block-1 > img')).toBeVisible();
-  await expect(page.getByText('Exceptional digitizing')).toBeVisible();
-  await expect(page.getByText('Craft and edit points, lines')).toBeVisible();
-  await expect(page.getByText('Advanced construction tools')).toBeVisible();
-  await expect(page.getByText('Build geometries with curves')).toBeVisible();
-  await expect(page.getByText('Highly customizable forms')).toBeVisible();
-  await expect(page.getByText('Create user-friendly forms')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Process and analyze' })).toBeVisible();
-  await expect(page.getByText('Benefit from state-of-the art')).toBeVisible();
-  await expect(page.locator('.deco-block-3 > img')).toBeVisible();
-  await expect(page.getByText('Comprehensive analysis toolset')).toBeVisible();
-  await expect(page.getByText('Uncover insights from your')).toBeVisible();
-  await expect(page.getByText('Automated analysis workflows')).toBeVisible();
-  await expect(page.getByText('Visually combine analysis')).toBeVisible();
-  await expect(page.getByText('Extensible analysis')).toBeVisible();
-  await expect(page.getByText('Explore a diverse ecosystem')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Share maps' })).toBeVisible();
-  await expect(page.getByText('QGIS provides an equal')).toBeVisible();
-  await expect(page.locator('.deco-block-4 > img')).toBeVisible();
-  await expect(page.getByText('Industry-leading format')).toBeVisible();
-  await expect(page.getByText('Conquer data integration')).toBeVisible();
-  await expect(page.getByText('Standards and interoperability')).toBeVisible();
-  await expect(page.getByText('Amplify your impact by')).toBeVisible();
-  await expect(page.getByText('Publish your work')).toBeVisible();
-  await expect(page.getByText('Extend QGIS to the cloud and')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Explore QGIS' })).toBeVisible();
-  await page.locator('div').filter({ hasText: '👋 The power of open source' }).first().click();
-  await expect(page.locator('.explore > .columns > div > figure > img')).toBeVisible();
-  await expect(page.getByRole('heading', { name: '👋 The power of open source' })).toBeVisible();
-  await expect(page.getByText('Our community development')).toBeVisible();
-  await expect(page.getByText('Join our annual international')).toBeVisible();
-  await expect(page.getByText('Find local user groups and')).toBeVisible();
-  await expect(page.getByText('Learn how people around the')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Get involved' }).first()).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Free and open source' })).toBeVisible();
-  await expect(page.getByText('QGIS is a public project')).toBeVisible();
-  await expect(page.getByText('For that reason QGIS is Free')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Free download' })).toBeVisible();
-  await expect(page.frameLocator('iframe[title="YouTube video player"]').locator('.ytp-cued-thumbnail-overlay-image')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Start using QGIS 🚀' })).toBeVisible();
-  await expect(page.getByText('Quick-start tutorials')).toBeVisible();
-  await expect(page.getByText('Live demos')).toBeVisible();
-  await expect(page.getByText('Up-to-date documentation')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Go to materials' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'QGIS supporters' })).toBeVisible();
-  await expect(page.locator('div').filter({ hasText: 'Add your logo here?' }).nth(2)).toBeVisible();
-  await expect(page.locator('div').filter({ hasText: 'Silver partner' }).nth(2)).toBeVisible();
-  await expect(page.locator('.supporters-grid > div:nth-child(3)').first()).toBeVisible();
-  await expect(page.locator('.tile > .tile').first()).toBeVisible();
-  await expect(page.getByRole('contentinfo')).toBeVisible();
-  await expect(page.getByRole('img', { name: 'Logo' })).toBeVisible();
-  await expect(page.getByRole('link', { name: '' })).toBeVisible();
-  await expect(page.getByRole('link', { name: '' })).toBeVisible();
-  await expect(page.getByRole('link', { name: '' })).toBeVisible();
-  await expect(page.locator('div:nth-child(2) > div:nth-child(2) > a:nth-child(4)').first()).toBeVisible();
-  await expect(page.getByRole('link', { name: '' })).toBeVisible();
-  await expect(page.getByRole('link', { name: '' })).toBeVisible();
+const test = base.extend<HomePageFixtures>({
+    header: async ({ page }, use) => {
+        const header = new Header(page);
+        await use(header);
+    },
+    homePage: async ({ page }, use) => {
+        const homePage = new HomePage(page);
+        await use(homePage);
+    },
+    footer: async ({ page }, use) => {
+        const footer = new Footer(page);
+        await use(footer);
+    }
+});
+
+test.describe("Home page", () => {
+    test.beforeEach(async ({ header, homePage }) => {
+        // Go to the home url before each test.
+        await homePage.goto();
+    });
+
+    test("Header", async ({ header }) => {
+        await expect(header.logoLink).toBeVisible();
+        await expect(header.productLink).toBeVisible();
+        await header.productLink.hover();
+        await expect(header.overviewLink).toBeVisible();
+        await expect(header.caseStudiesLink).toBeVisible();
+        await expect(header.pluginsLink).toBeVisible();
+        await expect(header.visualChangelogLink).toBeVisible();
+        await expect(header.communityLink).toBeVisible();
+        await header.communityLink.hover();
+        await expect(header.getInvolvedLink).toBeVisible();
+        await expect(header.certifiedMemberLink).toBeVisible();
+        await expect(header.qgisFoundationLink).toBeVisible();
+        await expect(header.projectOrganisationLink).toBeVisible();
+        await expect(header.membersBlogLink).toBeVisible();
+        await expect(header.downloadLink).toBeVisible();
+        await expect(header.resourcesLink).toBeVisible();
+        await header.resourcesLink.hover();
+        await expect(header.qgisResourcesLink).toBeVisible();
+        await expect(header.installationGuideLink).toBeVisible();
+        await expect(header.documentationLink).toBeVisible();
+        await expect(header.releasesLink).toBeVisible();
+        await expect(header.roadmapLink).toBeVisible();
+        await expect(header.reportsLink).toBeVisible();
+        await expect(header.booksLink).toBeVisible();
+        await expect(header.supportLink).toBeVisible();
+        await expect(header.blogLink).toBeVisible();
+        await expect(header.donateLink).toBeVisible();
+        await expect(header.searchInput).toBeVisible();
+        await expect(header.searchInput).toBeEmpty();
+    });
+
+    test("Content", async ({ homePage }) => {
+        await expect(homePage.freeOpenSourceSpatialDiv).toBeVisible();
+        await expect(homePage.spatialWithoutCompromiseHeading).toBeVisible();
+        await expect(homePage.createMapsHeading).toBeVisible();
+        await expect(homePage.editLayersHeading).toBeVisible();
+        await expect(homePage.processAndAnalyzeHeading).toBeVisible();
+        await expect(homePage.shareMapsHeading).toBeVisible();
+        await expect(homePage.exploreQGISLink).toBeVisible();
+        await expect(homePage.powerOfOpenSourceHeading).toBeVisible();
+        await expect(homePage.getInvolvedLink).toBeVisible();
+        await expect(homePage.freeAndOpenSourceHeading).toBeVisible();
+        await expect(homePage.freeDownloadLink).toBeVisible();
+        await expect(homePage.youTubeVideoThumbnailOverlayImage).toBeVisible();
+        await expect(homePage.startUsingQGISHeading).toBeVisible();
+        await expect(homePage.goToMaterialsLink).toBeVisible();
+        await expect(homePage.qgisSupportersHeading).toBeVisible();
+        await expect(homePage.addYourLogoHereText).toBeVisible();
+        await expect(homePage.silverPartnerText).toBeVisible();
+        await expect(homePage.supportersGridDiv).toBeVisible();
+        await expect(homePage.createMapsImg).toBeVisible();
+        await expect(homePage.editLayersImg).toBeVisible();
+        await expect(homePage.processImg).toBeVisible();
+        await expect(homePage.shareMapsImg).toBeVisible();
+        await expect(homePage.communityImg).toBeVisible();
+        await expect(homePage.changeLogVideo).toBeVisible();
+        await expect(homePage.otherSupporters).toBeVisible();
+
+        for (const text of homePage.textList) {
+            await expect(homePage.pageBody).toContainText(text);
+        }
+    });
+
+    test("Footer", async ({ footer }) => {
+        await expect(footer.banner).toBeVisible();
+        await expect(footer.productList).toBeVisible();
+        await expect(footer.communityList).toBeVisible();
+        await expect(footer.resourcesList.first()).toBeVisible();
+        await expect(footer.fundingList).toBeVisible();
+        await expect(footer.downloadLink).toBeVisible();
+        await expect(footer.overviewLink).toBeVisible();
+        await expect(footer.caseStudiesLink).toBeVisible();
+        await expect(footer.pluginsLink).toBeVisible();
+        await expect(footer.visualChangelogsLink).toBeVisible();
+        await expect(footer.getInvolvedLink).toBeVisible();
+        await expect(footer.becomeCertifiedMemberLink).toBeVisible();
+        await expect(footer.qgisFoundationLink).toBeVisible();
+        await expect(footer.projectOrganisationLink).toBeVisible();
+        await expect(footer.localUserGroupsLink).toBeVisible();
+        await expect(footer.membersBlogsList).toBeVisible();
+        await expect(footer.qgisResourcesLink).toBeVisible();
+        await expect(footer.installationGuideLink).toBeVisible();
+        await expect(footer.documentationLink).toBeVisible();
+        await expect(footer.releasesLink).toBeVisible();
+        await expect(footer.roadmapLink).toBeVisible();
+        await expect(footer.reportsLink).toBeVisible();
+        await expect(footer.booksLink).toBeVisible();
+        await expect(footer.supportLink).toBeVisible();
+        await expect(footer.blogLink).toBeVisible();
+        await expect(footer.donateLink).toBeVisible();
+        await expect(footer.membershipList).toBeVisible();
+        await expect(footer.diversityStatementLink).toBeVisible();
+        await expect(footer.codeOfConductLink).toBeVisible();
+        await expect(footer.environmentalPolicyLink).toBeVisible();
+        await expect(footer.licenseLink).toBeVisible();
+        await expect(footer.visualStyleGuideLink).toBeVisible();
+        await expect(footer.goodiesLink).toBeVisible();
+        await expect(footer.logoImage).toBeVisible();
+        await expect(footer.facebookLink).toBeVisible();
+        await expect(footer.twitterLink).toBeVisible();
+        await expect(footer.youtubeLink).toBeVisible();
+        await expect(footer.mapstodonLink).toBeVisible();
+        await expect(footer.ghLink).toBeVisible();
+        await expect(footer.mailLink).toBeVisible();
+    });
 });

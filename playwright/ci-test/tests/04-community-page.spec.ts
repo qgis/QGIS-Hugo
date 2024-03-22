@@ -1,155 +1,241 @@
-import { test, expect } from '@playwright/test';
+import { test as base, expect } from "@playwright/test";
+import { CommunityPage } from "./fixtures/community-page";
+import { HomePage } from "./fixtures/home-page";
+import { Sidebar } from "./fixtures/sidebar";
 
-let url = '/';
+type CommunityPageFixtures = {
+    homePage: HomePage;
+    sidebar: Sidebar;
+    communityPage: CommunityPage;
+};
 
-test('community page', async ({ page }) => {
-  await page.goto(url);
-  await page.locator('section').filter({ hasText: 'Free and open source Spatial' }).getByRole('link').click();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Community' })).toBeVisible();
-  await expect(page.locator('#sidebar div').filter({ hasText: 'Community' }).locator('span')).toBeVisible();
-  await page.locator('#sidebar div').filter({ hasText: 'Community' }).locator('span').click();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Get involved' })).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Get involved' }).click();
-  await expect(page.getByText('Ways of Contributing ¶ Participate in Support Channels Report Bugs QGIS')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Participate in Support' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Report Bugs' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'QGIS Documentation' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Translate QGIS', exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Develop a Plugin' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Develop QGIS Core' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Sustain & Donate' })).toBeVisible();
-  await expect(page.getByText('Participate in Support Channels ¶ User groups 🇩🇪 🇫🇷 🇪🇸')).toBeVisible();
-  await expect(page.getByText('Report Bugs ¶ If you')).toBeVisible();
-  await expect(page.getByText('QGIS Documentation ¶ Creating')).toBeVisible();
-  await expect(page.getByText('Translate QGIS ¶ If you’re')).toBeVisible();
-  await expect(page.getByText('Develop a Plugin ¶ Interested')).toBeVisible();
-  await expect(page.getByText('Develop QGIS Core ¶ QGIS Core')).toBeVisible();
-  await expect(page.getByText('Sustain & Donate ¶ We welcome')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Become a Sustaining Member' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'One-Time Donation' })).toBeVisible();
-  // the following options are one-time payments and are hidden by default
-  await expect(page.getByText('$ 10.00').first()).toBeHidden();
-  await expect(page.getByText('$ 20.00').first()).toBeHidden();
-  await expect(page.getByText('$ 50.00').first()).toBeHidden();
-  await expect(page.getByText('$ 100.00').first()).toBeHidden();
-  await expect(page.getByText('$ 250.00').first()).toBeHidden();
-  await expect(page.locator('#submit-button')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Other methods, more info' })).toBeVisible();
-  await expect(page.locator('#currency')).toBeVisible();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Become a certified member' })).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Become a certified member' }).click();
-  await expect(page.getByText('Become a certified member ¶ The QGIS Certificate Program is designed to promote')).toBeVisible();
-  await expect(page.getByText('The QGIS Certificate Program')).toBeVisible();
-  await expect(page.getByText('Development/commits to QGIS Contributions to the QGIS documentation and')).toBeVisible();
-  await expect(page.getByText('To contact the certification')).toBeVisible();
-  await expect(page.getByText('You are required to provide')).toBeVisible();
-  await expect(page.getByText('Following an initial review,')).toBeVisible();
-  await expect(page.getByText('The PSC will make the final')).toBeVisible();
-  await expect(page.getByText('If approved you are required')).toBeVisible();
-  await expect(page.getByText('You can apply through this')).toBeVisible();
-  await expect(page.getByRole('img', { name: 'Workflow Certification' })).toBeVisible();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'QGIS Foundation' })).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'QGIS Foundation' }).click();
-  await expect(page.getByRole('link', { name: 'Charter' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Annual General Meetings' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Annual Reports' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Finance' })).toBeVisible();
-  await expect(page.getByText('QGIS Foundation Giving the')).toBeVisible();
-  await expect(page.getByText('Giving the power of spatial')).toBeVisible();
-  await expect(page.getByText('Annual General Meetings Starting in 2016 (coincident with the establishment of')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Read more' }).first()).toBeVisible();
-  await expect(page.getByText('Annual Reports Starting in')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Read more' }).nth(1)).toBeVisible();
-  await expect(page.getByText('Finance Please check the')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Read more' }).nth(2)).toBeVisible();
-  await expect(page.getByText('QGIS.org Charter QGIS.ORG is')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Read more' }).nth(3)).toBeVisible();
-  await page.getByRole('link', { name: 'Charter' }).click();
-  await expect(page.getByText('Charter of the QGIS.ORG Association ¶ Legal status of QGIS.ORG ¶ QGIS.ORG is')).toBeVisible();
-  await page.getByRole('link', { name: 'Annual General Meetings' }).click();
-  await expect(page.getByText('Annual General Meetings ¶ Starting in 2016 (coincident with the establishment')).toBeVisible();
-  await page.getByRole('link', { name: 'Annual Reports' }).click();
-  await expect(page.getByText('Annual Reports ¶ Starting in')).toBeVisible();
-  await page.getByRole('link', { name: 'Finance' }).click();
-  await expect(page.getByText('Finance ¶ Please check the')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Budget 2023 Download PDF' })).toBeVisible();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Project Organisation' })).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Project Organisation' }).click();
-  await expect(page.getByText('Who’s Who ¶ QGIS as a Project')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Infrastructure' })).toBeVisible();
-  await page.getByRole('link', { name: 'Infrastructure' }).click();
-  await expect(page.getByText('Infrastructure ¶ This page')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Brand Guidelines' })).toBeVisible();
-  await page.getByRole('link', { name: 'Brand Guidelines' }).click();
-  await expect(page.getByText('QGIS Trademark and brand guidelines ¶ We’re thrilled that you want to refer to')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Contributor Credits' })).toBeVisible();
-  await page.getByRole('link', { name: 'Contributor Credits' }).click();
-  await expect(page.getByText('Contributor Credits ¶ Individuals, institutions and firms who contributed code')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Committee Resolutions' })).toBeVisible();
-  await page.getByRole('link', { name: 'Committee Resolutions' }).click();
-  await expect(page.getByText('Committee Resolutions Committee Resolution 2019 In 2019, the Project Steering')).toBeVisible();
-  await expect(page.getByText('Committee Resolution 2019 In')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Read more' }).first()).toBeVisible();
-  await expect(page.getByText('Committee Resolution 2020 In')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Read more' }).nth(1)).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Meetings', exact: true })).toBeVisible();
-  await page.getByRole('link', { name: 'Meetings', exact: true }).click();
-  await expect(page.getByText('Meetings ¶ Since 2009 the')).toBeVisible();
-  await expect(page.getByText('Developer Meetings ¶ Go to')).toBeVisible();
-  await expect(page.getByText('Users Meetings ¶ Go to')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Go to meetings' }).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Go to meetings' }).nth(1)).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Mailing Lists' })).toBeVisible();
-  await page.getByRole('link', { name: 'Mailing Lists' }).click();
-  await expect(page.getByText('Mailing Lists ¶ We')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'QGIS Users list http://lists.' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'QGIS Developers list http://' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'QGIS Community team http://' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'QGIS Translations http://' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'QGIS Project Steering' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'QGIS Web Client 2 http://' })).toBeVisible();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Funding' })).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Funding' }).click();
-  await expect(page.locator('#sidebar').getByRole('link', { name: 'Membership' })).toBeVisible();
-  await page.locator('#sidebar').getByRole('link', { name: 'Membership' }).click();
-  await expect(page.getByText('How become a sustaining member')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Become a Sustaining Member' })).toBeVisible();
-  await expect(page.locator('div').filter({ hasText: 'Sustaining Membership program Join our mission to enhance and promote QGIS as' }).nth(1)).toBeVisible();
-  await expect(page.locator('section').filter({ hasText: 'Sustaining Membership program Join our mission to enhance and promote QGIS as' }).getByRole('link')).toBeVisible();
-  await expect(page.getByText('Sustaining Membership program ¶ QGIS is an entirely Open Source project. QGIS')).toBeVisible();
-  await expect(page.getByText('QGIS is an entirely Open')).toBeVisible();
-  await expect(page.getByText('As a result, you have free')).toBeVisible();
-  await expect(page.getByText('€ 27,000+ ¶ Flagship Member (')).toBeVisible();
-  await expect(page.getByText('€ 9,000+ ¶ Large Member (e.g')).toBeVisible();
-  await expect(page.getByText('€ 3,000+ ¶ Medium Member (e.g')).toBeVisible();
-  await expect(page.getByText('€ 500+ ¶ Small Member (e.g.')).toBeVisible();
-  await expect(page.getByText('Public Acknowledgment ¶ All')).toBeVisible();
-  await expect(page.getByText('Enhanced Software Quality ¶ Your contribution aids in resolving bugs and issues')).toBeVisible();
-  await expect(page.getByText('Enhanced Brand Exposure ¶ Flagship, large and medium sustaining members will')).toBeVisible();
-  await expect(page.getByText('Featured in Software Updates ¶ Your support is highlighted in the visual')).toBeVisible();
-  await expect(page.getByText('Public Acknowledgment ¶ Use a')).toBeVisible();
-  await expect(page.getByText('Enhanced Brand Exposure ¶ Enjoy an ad-free experience in QGIS, focusing on your')).toBeVisible();
-  await expect(page.getByText('Reach out to the treasurer at')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Write to trearurer' })).toBeVisible();
-  await expect(page.getByText('The treasurer will gather')).toBeVisible();
-  await expect(page.getByText('The treasurer verifies the')).toBeVisible();
-  await expect(page.getByText('Membership details are')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Open Sustaining Members' })).toBeVisible();
-  await expect(page.getByText('Recognition: Sustaining')).toBeVisible();
-  await expect(page.getByText('Visibility: Members are')).toBeVisible();
-  await expect(page.getByText('Promotion: When appropriate,')).toBeVisible();
-  await expect(page.getByText('Past sustaining members are')).toBeVisible();
-  await expect(page.getByText('You can also make one-time payement ¶ Donations can be of any amount, via')).toBeVisible();
-  await expect(page.getByText('About ‘earmarked’ funding ¶ We regret that we cannot accept ‘earmarked’ funding')).toBeVisible();
-  await expect(page.getByText('Warning ¶ Acceptance of')).toBeVisible();
-  // TODO: why Members are not visible?
-  // await expect(page.locator('#sidebar').getByRole('link', { name: 'Members' })).toBeVisible();
-  // await page.locator('#sidebar').getByRole('link', { name: 'Members' }).click();
-  // await expect(page.getByRole('heading', { name: 'Flagship' })).toBeVisible();
-  // await expect(page.locator('article').filter({ hasText: 'Felt 2023-01-01 - 2024-02-' })).toBeVisible();
-  // await expect(page.getByRole('heading', { name: 'Large' })).toBeVisible();
-  // await expect(page.locator('article').filter({ hasText: 'Land Vorarlberg 2023-03-01 -' })).toBeVisible();
-  // await expect(page.locator('#sidebar').getByRole('link', { name: 'Past Members' })).toBeVisible();
-  // await page.locator('#sidebar').getByRole('link', { name: 'Past Members' }).click();
-  // await expect(page.getByText('Past sustaining members ¶ Cheslatta Carrier nation 2021-11-19 - 2023-01-31')).toBeVisible();
+const test = base.extend<CommunityPageFixtures>({
+    homePage: async ({ page }, use) => {
+        const homePage = new HomePage(page);
+        await use(homePage);
+    },
+    sidebar: async ({ page }, use) => {
+        const sidebar = new Sidebar(page);
+        await use(sidebar);
+    },
+    communityPage: async ({ page }, use) => {
+        const communityPage = new CommunityPage(page);
+        await use(communityPage);
+    },
 });
+
+test.describe("Community pages", () => {
+    test.beforeEach(async ({ communityPage }) => {
+        // Go to the resources url before each test.
+        await communityPage.goto();
+    });
+    test("Get involved", async ({ homePage, sidebar, communityPage }) => {
+        await expect(sidebar.getInvolvedLink).toBeVisible();
+        await sidebar.getInvolvedLink.click();
+
+        let getInvolvedTexts = communityPage.textList.find(
+            (item) => item.page == "Get involved",
+        )?.texts;
+
+        if (getInvolvedTexts) {
+            for (const item of getInvolvedTexts) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+        await expect(communityPage.participateSupportLink).toBeVisible();
+        await expect(communityPage.reportBugsLink).toBeVisible();
+        await expect(communityPage.qgisDocumentationLink).toBeVisible();
+        await expect(communityPage.translateQGISLink).toBeVisible();
+        await expect(communityPage.developPluginLink).toBeVisible();
+        await expect(communityPage.developQGISCoreLink).toBeVisible();
+        await expect(communityPage.sustainDonateLink).toBeVisible();
+
+        // TODO: Add tests for monthly and one-time tabs
+
+        await expect(communityPage.otherMethodsInfoLink).toBeVisible();
+        await expect(communityPage.currencyInput).toBeVisible();
+    });
+
+    test("Become a certified member", async ({ sidebar, communityPage }) => {
+        await expect(sidebar.becomeCertifiedMemberLink).toBeVisible();
+        await sidebar.becomeCertifiedMemberLink.click();
+        let becomeCertifiedTexts = communityPage.textList.find(
+            (item) => item.page == "Become a certified member",
+        )?.texts;
+
+        if (becomeCertifiedTexts) {
+            for (const item of becomeCertifiedTexts) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await expect(communityPage.workflowCertificationImg).toBeVisible();
+    });
+    test("QGIS Foundation", async ({ sidebar, communityPage }) => {
+        await expect(sidebar.qgisFoundationLink).toBeVisible();
+        await sidebar.qgisFoundationLink.click();
+
+        let qgisFoundationText = communityPage.textList.find(
+            (item) => item.page == "QGIS Foundation",
+        )?.texts;
+
+        if (qgisFoundationText) {
+            for (const item of qgisFoundationText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await expect(communityPage.charterLink).toBeVisible();
+        await expect(communityPage.annualGeneralMeetingsLink).toBeVisible();
+        await expect(communityPage.annualReportsLink).toBeVisible();
+        await expect(communityPage.financeLink).toBeVisible();
+
+        await communityPage.charterLink.click();
+
+        let charterText = communityPage.textList.find(
+            (item) => item.page == "Charter",
+        )?.texts;
+
+        if (charterText) {
+            for (const item of charterText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await communityPage.annualGeneralMeetingsLink.click();
+
+        let annualGeneralMeetingsText = communityPage.textList.find(
+            (item) => item.page == "Annual General Meetings",
+        )?.texts;
+
+        if (annualGeneralMeetingsText) {
+            for (const item of annualGeneralMeetingsText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await communityPage.annualReportsLink.click();
+        let annualReportsText = communityPage.textList.find(
+            (item) => item.page == "Annual Reports",
+        )?.texts;
+
+        if (annualReportsText) {
+            for (const item of annualReportsText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await communityPage.financeLink.click();
+        let financeText = communityPage.textList.find(
+            (item) => item.page == "Finance",
+        )?.texts;
+
+        if (financeText) {
+            for (const item of financeText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+    });
+
+    test("Project Organisation", async ({ sidebar, communityPage }) => {
+        await expect(sidebar.projectOrganisationLink).toBeVisible();
+        await sidebar.projectOrganisationLink.click();
+        let projectOrganisationText = communityPage.textList.find(
+            (item) => item.page == "Project Organisation",
+        )?.texts;
+
+        if (projectOrganisationText) {
+            for (const item of projectOrganisationText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await expect(communityPage.infrastructureLink).toBeVisible();
+        await communityPage.infrastructureLink.click();
+        let infrastructureText = communityPage.textList.find(
+            (item) => item.page == "Infrastructure",
+        )?.texts;
+
+        if (infrastructureText) {
+            for (const item of infrastructureText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await expect(communityPage.brandGuidelinesLink).toBeVisible();
+        await communityPage.brandGuidelinesLink.click();
+        let brandGuidelinesText = communityPage.textList.find(
+            (item) => item.page == "Brand Guidelines",
+        )?.texts;
+
+        if (brandGuidelinesText) {
+            for (const item of brandGuidelinesText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await expect(communityPage.contributorCreditsLink).toBeVisible();
+        await communityPage.contributorCreditsLink.click();
+        let contributorCreditsText = communityPage.textList.find(
+            (item) => item.page == "Contributor Credits",
+        )?.texts;
+
+        if (contributorCreditsText) {
+            for (const item of contributorCreditsText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await expect(communityPage.committeeResolutionsLink).toBeVisible();
+        await communityPage.committeeResolutionsLink.click();
+
+        let committeeResolutionsText = communityPage.textList.find(
+            (item) => item.page == "Committee Resolutions",
+        )?.texts;
+
+        if (committeeResolutionsText) {
+            for (const item of committeeResolutionsText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await expect(communityPage.meetingsLink).toBeVisible();
+        await communityPage.meetingsLink.click();
+
+        let meetingsText = communityPage.textList.find(
+            (item) => item.page == "Meetings",
+        )?.texts;
+
+        if (meetingsText) {
+            for (const item of meetingsText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await expect(communityPage.goToMeetingsFirstLink).toBeVisible();
+        await expect(communityPage.goToMeetingsNthLink).toBeVisible();
+
+        await expect(communityPage.mailingListsLink).toBeVisible();
+        await communityPage.mailingListsLink.click();
+
+        let mailingListsText = communityPage.textList.find(
+            (item) => item.page == "Mailing Lists",
+        )?.texts;
+
+        if (mailingListsText) {
+            for (const item of mailingListsText) {
+                await expect(communityPage.pageBody).toContainText(item);
+            }
+        }
+
+        await expect(communityPage.qgisUsersListLink).toBeVisible();
+        await expect(communityPage.qgisDevelopersListLink).toBeVisible();
+        await expect(communityPage.qgisCommunityTeamLink).toBeVisible();
+        await expect(communityPage.qgisTranslationsLink).toBeVisible();
+        await expect(communityPage.qgisProjectSteeringLink).toBeVisible();
+        await expect(communityPage.qgisWebClientLink).toBeVisible();
+    });
+});
+
+// TODO: why Members are not visible?
+// Members has been moved to Funding > Membership
