@@ -473,6 +473,11 @@ sectionPagesMenu = 'main'
   url = "https://blog.qgis.org/"
   weight = 180
 
+[[menu.main]]
+  parent = "Support"
+  name = "Security"
+  url = "/resources/support/security"
+  weight = 190
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]

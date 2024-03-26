@@ -54,4 +54,10 @@ The website should be used to publish any material in relation to the informatio
 
 Good luck with the organization of your local user group. Please inform the international QGIS team by registering at the QGIS community list and reporting about your progress. Please do not hesitate to ask questions regarding the establishment and maintenance of your local user group.
 
+## Security Vulnerability Reporting
+
+If you believe you have found a security issue, such as vulnerabilities in QGIS or its dependencies, please refer to the [security page]({{< ref "resources/support/security" >}}) for detailed information on how to report it responsibly.
+
 {{< content-end >}}
+
+
