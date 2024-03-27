@@ -1,5 +1,4 @@
-# May be overwritten in .github/actions/hugo.yml 
-# when deploying to gh pages
+# May be overwritten in .github/workflows/github-pages.yml
 baseURL = 'https://qgis.org/'
 languageCode = 'en-us'
 title = 'QGIS Web Site'

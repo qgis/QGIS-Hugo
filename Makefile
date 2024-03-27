@@ -1,15 +1,15 @@
 help:
-		@echo "QGIS Hugo"
-		@echo 
-		@echo "Brought to you by Kartoza (Pty) Ltd."
-		@echo 
-		@echo "Help for using this Makefile"
-		@echo
-		@echo "For detailed help please visit:"
-		@echo "https://github.com/QGIS/QGIS-Hugo"
-		@echo
-		@echo "------------------------------------------------------------------"
-		@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort  | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m - %s\n", $$1, $$2}'
+	@echo "QGIS Hugo"
+	@echo
+	@echo "Brought to you by Kartoza (Pty) Ltd."
+	@echo
+	@echo "Help for using this Makefile"
+	@echo
+	@echo "For detailed help please visit:"
+	@echo "https://github.com/QGIS/QGIS-Hugo"
+	@echo
+	@echo "------------------------------------------------------------------"
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort  | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m - %s\n", $$1, $$2}'
  
 dev-build: ## Generate the development docker container
 	docker build --rm -f Dockerfile.dev -t qgis_hugo_dev:latest .
@@ -30,6 +30,18 @@ tests: ## Run the test suite
 	docker run --rm --net=host --volume "$${PWD}":/app -w /app qgis_hugo_tests:latest
 
 build: ## Build the site then run using python http.server
-	hugo
+	hugo --baseURL ""
 	python -m http.server 8000 -d public
 	#xdg-open http://localhost:8000
+
+csv/schedule.csv scripts/schedule.ics data/conf.json:
+	python scripts/update-schedule.py
+
+clearschedule:
+	$(RM) csv/schedule.csv data/conf.json
+
+schedule: clearschedule csv/schedule.csv scripts/schedule.ics data/conf.json	## Update schedule after release
+	git pull --autostash --rebase
+	git commit -a -m "Update for $(shell jq -r '.release' data/conf.json)/$(shell jq -r '.ltrrelease' data/conf.json) point releases"
+
+.PHONY: schedule

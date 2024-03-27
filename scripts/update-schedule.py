@@ -218,10 +218,9 @@ assert devversion.split(".") > lr_version.split("."), f"DEV {devversion} not hig
 
 shortver = "".join(lr_version.split(".")[:2])
 for f in [
-        # NOTE: there's no dir for versioned banners for the current website
-        # f"themes/qgis-theme/static/images/qgisorg_banner{shortver}.png", 
-        # TODO: no changelog for 3.36
-        # f"content/product/visual-changelogs/visualchangelog{shortver}/index.md"
+    # NOTE: there's no dir for versioned banners for the current website
+    # f"themes/qgis-theme/static/images/qgisorg_banner{shortver}.png",
+    # f"content/product/visual-changelogs/visualchangelog{shortver}/index.md"
 ]:
     assert os.path.exists(f), f"{f} not found"
 
@@ -229,7 +228,7 @@ ltrversion = ".".join(ltr_version.split(".")[:2])
 
 with open("data/conf.json", "w") as f:
     json.dump({
-        "WARNING": "this json is produced from googlesheet via scripts/update-schedule.py - EDITS WILL BE LOST",
+        "WARNING": "produced from googlesheet via scripts/update-schedule.py - EDITS WILL BE LOST",
         "version": ".".join(lr_version.split(".")[:2]),
         "release": lr_version,
         "releasedate": lr_date.strftime("%d.%m.%Y"),
