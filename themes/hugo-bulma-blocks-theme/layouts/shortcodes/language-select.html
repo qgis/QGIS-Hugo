@@ -37,9 +37,7 @@
 
             linkTitleWithLang.forEach(function (title) {
                 const titleContent = title.getAttribute('title-content')
-                console.log(titleContent)
                 const newTitleContent = titleContent.replace('<lang>', languageText)
-                console.log(newTitleContent)
                 title.textContent = newTitleContent
             });
         }
