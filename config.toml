@@ -72,8 +72,8 @@ success = "#589632"
 warning = "#EEE766"
 link = "#ee7913"
 # Brand fonts to override bulma font families
-heading-font = "'Trueno', sans-serif"
-text-font = "'Trueno', sans-serif"
+heading-font = "'Twemoji Country Flags', 'Trueno', sans-serif"
+text-font = "'Twemoji Country Flags', 'Trueno', sans-serif"
 fancy-font = "'Sevillana', cursive"
 
 menuFontClass = "is-size-6"
@@ -479,77 +479,77 @@ sectionPagesMenu = 'main'
   weight = 1
 
 [[menu.lang]]
-  name = "🇨🇿 Czech"
+  name = "🇨🇿 Čeština"
   url = "cs"
   weight = 2
 
 [[menu.lang]]
-  name = "🇩🇪 German"
+  name = "🇩🇪 Deutsch"
   url = "de"
   weight = 3
 
 [[menu.lang]]
-  name = "🇪🇸 Spanish"
+  name = "🇪🇸 Español"
   url = "es"
   weight = 4
 
 [[menu.lang]]
-  name = "🇫🇷 French"
+  name = "🇫🇷 Français"
   url = "fr"
   weight = 5
 
 [[menu.lang]]
-  name = "🇭🇺 Hungarian"
+  name = "🇭🇺 Magyar"
   url = "hu"
   weight = 6
 
 [[menu.lang]]
-  name = "🇮🇹 Italian"
+  name = "🇮🇹 Italiano"
   url = "it"
   weight = 7
 
 [[menu.lang]]
-  name = "🇯🇵 Japanese"
+  name = "🇯🇵 日本語"
   url = "ja"
   weight = 8
 
 [[menu.lang]]
-  name = "🇰🇷 Korean"
+  name = "🇰🇷 한국어"
   url = "ko"
   weight = 9
 
 [[menu.lang]]
-  name = "🇱🇹 Lithuanian"
+  name = "🇱🇹 Lietuviškai"
   url = "lt"
   weight = 10
 
 [[menu.lang]]
-  name = "🇳🇱 Dutch"
+  name = "🇳🇱 Nederlands"
   url = "nl"
   weight = 11
 
 [[menu.lang]]
-  name = "🇧🇷 Portuguese - Brazil"
+  name = "🇧🇷 Português - Brasil"
   url = "pt_BR"
   weight = 12
 
 [[menu.lang]]
-  name = "🇵🇹 Portuguese - Portugal"
+  name = "🇵🇹 Português - Portugal"
   url = "pt_PT"
   weight = 13
 
 [[menu.lang]]
-  name = "🇷🇴 Romanian"
+  name = "🇷🇴 Românește"
   url = "ro"
   weight = 14
 
 [[menu.lang]]
-  name = "🇷🇺 Russian"
+  name = "🇷🇺 Русский"
   url = "ru"
   weight = 15
 
 [[menu.lang]]
-  name = "🇨🇳 Chinese - Simplified"
+  name = "🇨🇳 简体中文"
   url = "zh-Hans"
   weight = 16
 

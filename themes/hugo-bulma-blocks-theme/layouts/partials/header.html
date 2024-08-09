@@ -173,6 +173,14 @@
             type="application/javascript"
             src="{{ .Site.Params.uniNavHeaderUrl }}"
         ></script>
+
+        <!-- Countries Flag for windows -->
+        <!-- Added by Lova -->
+        <!-- See https://github.com/talkjs/country-flag-emoji-polyfill -->
+        <script type="module" defer>
+            import { polyfillCountryFlagEmojis } from "https://cdn.skypack.dev/country-flag-emoji-polyfill";
+            polyfillCountryFlagEmojis();
+        </script>
     </head>
 
     <body></body>
